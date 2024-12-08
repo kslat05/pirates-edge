@@ -58,6 +58,10 @@ class World (context.Context):
         peacefulIsland = PeacefulIsland.PeacefulIsland(self.startx + 1, self.starty, self)
         self.locs[self.startx - 1][self.starty] = peacefulIsland
 
+        mcDonalds = Mcdonalds.McDonalds(self.startx -2, self.starty, self)
+        self.locs[self.startx -2][self.starty] = mcDonalds
+        
+
         self.events = []
         self.events.append (lucky.LuckyDay())
         self.events.append (nothing.Nothing())
