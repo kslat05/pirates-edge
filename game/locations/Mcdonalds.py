@@ -6,8 +6,10 @@ import game.items as items
 import game.combat as combat
 import game.event as event
 import game.items as item
+from game.items import Item
 import random
 
+#Thief guy
 class Thief(combat.Monster):
     def __init__(self, name):
         attacks = {
@@ -17,8 +19,8 @@ class Thief(combat.Monster):
         super().__init__(name, random.randrange(10, 21), attacks, 100 + random.randrange(-10, 21))
         self.type_name = "Food Thief"
 
+#Event with theives
 class KitchenRaid(event.Event):
-
     def __init__(self):
         self.name = "food thieves attack"
 
@@ -45,8 +47,8 @@ class AngryDiner(combat.Monster):
         super().__init__(name, random.randrange(15, 26), attacks, 80 + random.randrange(-10, 11))
         self.type_name = "Angry Diner"
 
+#Event with diners
 class DiningRoomChaos(event.Event):
-
     def __init__(self):
         self.name = "dining room chaos"
 
@@ -100,6 +102,10 @@ class McDonalds(location.Location):
     def enter(self, ship):
         display.announce("Welcome to McDonald's! I hope you're using the mobile app because I can't work the register.", pause=False)
 
+class Wallet(Item):
+    def __init__(self):
+        super().__init__("green-flower", 10)
+
 class Kitchen(location.SubLocation):
     def __init__(self, m):
         super().__init__(m)
@@ -137,6 +143,9 @@ class Storage(location.SubLocation):
         self.event_chance = 20
 
     def enter(self):
+        game = config.the_player
+        game.add_to_inventory([Wallet()])
+        display.announce(f"You pick up a wallet off the storage room ground, maybe you'll get some extra points😊.")
         display.announce("You explore the storage area where the employees take their breaks.")
 
 class Reception(location.SubLocation):
